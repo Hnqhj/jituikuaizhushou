@@ -13,6 +13,9 @@
 
 ---
 
+<img width="820" height="920" alt="24a37802-5628-4062-8acf-0b114c1ad613" src="https://github.com/user-attachments/assets/03ead99a-b8d1-408c-98ad-7a0e4c485492" />
+
+
 ## 🇨🇳 中文说明
 
 ### 简介
