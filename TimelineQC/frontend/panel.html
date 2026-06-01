@@ -1,0 +1,169 @@
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>鸡腿快助手</title>
+    <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+    <main class="resolve-app">
+        <header class="resolve-topbar">
+            <div class="topbar-left">
+                <div class="topbar-title"><img class="title-logo" src="../logo.png" alt="" onerror="this.onerror=null;this.src='logo.png';">鸡腿快助手</div>
+                <div class="status-pill" id="connectionState">连接中</div>
+            </div>
+            <div class="window-controls">
+                <button class="window-btn" id="btnMinimize" type="button" title="最小化" aria-label="最小化">−</button>
+                <button class="window-btn" id="btnMaximize" type="button" title="最大化" aria-label="最大化">□</button>
+                <button class="window-btn close" id="btnClose" type="button" title="关闭" aria-label="关闭">×</button>
+            </div>
+        </header>
+
+        <div class="resolve-layout">
+            <aside class="browser-panel">
+                <div class="panel-heading">
+                    <span><i class="enable-triangle on"></i>时间线列表</span>
+                    <span class="panel-hint" id="timelineCount">--</span>
+                </div>
+                <div class="sidebar-body">
+                    <div class="folder-picker">
+                        <span>时间线文件夹</span>
+                        <div class="folder-controls">
+                            <select id="folderSelect" aria-label="选择时间线文件夹"></select>
+                            <button class="icon-btn" id="btnRefreshTimeline" type="button" title="刷新时间线" aria-label="刷新时间线">↻</button>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-top">
+                        <div class="timeline-list-header">
+                            <span>项目时间线</span>
+                        </div>
+                        <div class="timeline-list" id="timelineList">
+                            <div class="timeline-empty">读取中</div>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-footer">
+                        <div class="sidebar-meta">
+                            <div class="kv wide">
+                                <span>名称</span>
+                                <strong id="tlName">--</strong>
+                            </div>
+                            <div class="kv">
+                                <span>帧率</span>
+                                <strong id="tlFps">--</strong>
+                            </div>
+                            <div class="kv">
+                                <span>分辨率</span>
+                                <strong id="tlRes">--</strong>
+                            </div>
+                            <div class="kv">
+                                <span>视频轨</span>
+                                <strong id="tlTracks">--</strong>
+                            </div>
+                            <div class="kv">
+                                <span>格式</span>
+                                <strong id="tlProfile">--</strong>
+                            </div>
+                        </div>
+
+                        <div class="sidebar-note">
+                            <span>时间线切换后会自动同步当前信息。</span>
+                        </div>
+                        <div class="sidebar-author"><span>v1.3.4</span><strong>获嘉青年</strong></div>
+                    </div>
+                </div>
+            </aside>
+
+            <section class="inspector-pane">
+                <section class="panel inspector-section">
+                    <div class="panel-heading">
+                        <span><i class="enable-triangle on"></i>检查项</span>
+                    </div>
+                    <div class="check-grid">
+                        <label><input type="checkbox" id="chkShortDrama" checked><span>格式</span></label>
+                        <label><input type="checkbox" id="chkBlackFrame" checked><span>黑帧</span></label>
+                        <label><input type="checkbox" id="chkBlackScreen" checked><span>黑场</span></label>
+                        <label><input type="checkbox" id="chkFlashFrame" checked><span>夹帧</span></label>
+                        <label><input type="checkbox" id="chkUngraded" checked><span>未调色</span></label>
+                        <label><input type="checkbox" id="chkOverexposure" checked><span>过曝</span></label>
+                        <label><input type="checkbox" id="chkMonoAudio" checked><span>单声道</span></label>
+                    </div>
+                </section>
+
+                <section class="panel compact inspector-section">
+                    <button class="fold-button" id="toggleAdvanced" type="button">
+                        <span><i class="enable-dot"></i>参数</span>
+                        <span id="advArrow">展开</span>
+                    </button>
+                    <div class="advanced-body" id="advBody" hidden>
+                        <div class="option-grid">
+                            <label><span>黑帧阈值</span><input type="number" id="blackThreshold" value="18" min="0" max="255"></label>
+                            <label><span>黑场最小帧</span><input type="number" id="blackScreenMinFrames" value="8" min="2" max="300"></label>
+                            <label><span>夹帧差异</span><input type="range" id="flashThreshold" min="0.05" max="0.8" step="0.01" value="0.28"><output id="flashThresholdVal">0.28</output></label>
+                            <label><span>前后回归</span><input type="range" id="flashReturnThreshold" min="0.03" max="0.3" step="0.01" value="0.12"><output id="flashReturnThresholdVal">0.12</output></label>
+                            <label><span>夹帧最大帧</span><input type="number" id="flashMinFrames" value="3" min="1" max="30"></label>
+                            <label><span>夹帧残片最大帧</span><input type="number" id="microClipMaxFrames" value="3" min="1" max="12"></label>
+                            <label><span>分析高度</span><input type="number" id="renderHeight" value="960" min="360" max="1920"></label>
+                        </div>
+                        <div class="toggle-row">
+                            <label><input type="checkbox" id="addMarkers" checked><span>写入 Marker</span></label>
+                            <label><input type="checkbox" id="cleanupFrames" checked><span>清理临时帧</span></label>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="actionbar">
+                    <button class="btn primary" id="btnQuickCheck" type="button">快速检查</button>
+                    <button class="btn secondary" id="btnPreciseCheck" type="button">精确检查</button>
+                    <button class="btn secondary" id="btnBatchCheck" type="button">批量检查</button>
+                    <button class="btn secondary" id="btnClearMarkers" type="button">清除标记</button>
+                    <button class="btn danger" id="btnCancelCheck" type="button" hidden>取消检查</button>
+                </section>
+
+                <section class="progress-section" id="progressSection" hidden>
+                    <div class="progress-track"><div class="progress-bar" id="progressBar"></div></div>
+                    <div class="progress-text" id="progressText">准备中</div>
+                </section>
+
+                <section class="panel inspector-section results-panel" id="resultsSection">
+                    <div class="panel-heading">
+                        <span><i class="enable-triangle on"></i>结果</span>
+                        <span class="panel-hint" id="resultHint">未运行</span>
+                    </div>
+                    <div class="summary-grid" id="summaryCards"></div>
+                    <div class="issue-list" id="issuesList">
+                        <div class="empty-state">等待检查。</div>
+                    </div>
+                </section>
+
+                <section class="panel inspector-section report-panel" id="reportSection">
+                    <div class="panel-heading">
+                        <span><i class="enable-dot"></i>状态</span>
+                        <span class="panel-hint">日志</span>
+                    </div>
+                    <div class="report-info" id="reportInfo">
+                        <div class="muted">暂无报告。</div>
+                    </div>
+                </section>
+            </section>
+        </div>
+    </main>
+
+    <div class="modal-backdrop" id="noticeModal" hidden>
+        <div class="notice-dialog" role="dialog" aria-modal="true" aria-labelledby="noticeTitle">
+            <div class="notice-titlebar">
+                <span><i class="enable-triangle on"></i><strong id="noticeTitle">提示</strong></span>
+            </div>
+            <div class="notice-body" id="noticeBody"></div>
+            <div class="notice-actions">
+                <button class="btn primary" id="noticeOk" type="button">确定</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="panel.js"></script>
+</body>
+</html>
+

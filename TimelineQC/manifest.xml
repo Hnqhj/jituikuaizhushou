@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<BlackmagicDesign>
+    <Plugin>
+        <Id>com.moteline.shortdrama</Id>
+        <Name>鸡腿快助手</Name>
+        <Version>1.3.4</Version>
+        <Description>Short drama timeline QC for vertical delivery</Description>
+        <FilePath>main.js</FilePath>
+    </Plugin>
+</BlackmagicDesign>
+

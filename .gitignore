@@ -1,0 +1,9 @@
+release/
+TimelineQC/runtime/
+TimelineQC/reports/
+TimelineQC/__pycache__/
+TimelineQC/backend/__pycache__/
+TimelineQC/backend/analyzers/__pycache__/
+*.pyc
+*.tmp
+*.zip

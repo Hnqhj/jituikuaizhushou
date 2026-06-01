@@ -1,0 +1,12 @@
+﻿{
+  "name": "moteline",
+  "productName": "鸡腿快助手",
+  "version": "1.3.4",
+  "description": "鸡腿快助手短剧时间线质检插件 for DaVinci Resolve Studio",
+  "author": "获嘉青年",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  }
+}
+

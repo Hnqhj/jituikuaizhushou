@@ -1,0 +1,11 @@
+{
+  "enabled": true,
+  "manifest_url": "",
+  "gitee_repo_url": "https://gitee.com/qhjnb123456/chicken-leg",
+  "gitee_remote_url": "https://gitee.com/qhjnb123456/chicken-leg.git",
+  "check_interval_hours": 6,
+  "startup_delay_ms": 4000,
+  "auto_download": true,
+  "auto_install_on_resolve_exit": true,
+  "timeout_ms": 12000
+}
